@@ -1,18 +1,15 @@
 import { Box, Paper, Typography, useTheme } from "@mui/material";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { useState } from "react";
-import EventIcon from '@mui/icons-material/Event';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PendingIcon from '@mui/icons-material/Pending';
-import EventRepeatIcon from '@mui/icons-material/EventRepeat';
-import CancelIcon from '@mui/icons-material/Cancel';
+import { Card } from "./components/Card/Card";
+import { ColumnHeader } from "./components/ColumnHeader/ColumnHeader";
 
-interface Task {
+export interface Task {
     id: string;
     content: string;
 }
 
-interface Column {
+export interface Column {
     id: string;
     title: string;
     tasks: Task[];
@@ -56,23 +53,6 @@ const initialData: Column[] = [
         ]
     }
 ];
-
-const getColumnIcon = (columnId: string) => {
-    switch (columnId) {
-        case "appointment":
-            return <EventIcon sx={{ mr: 1, color: 'primary.main' }} />;
-        case "confirmation":
-            return <PendingIcon sx={{ mr: 1, color: 'warning.main' }} />;
-        case "reschedule":
-            return <EventRepeatIcon sx={{ mr: 1, color: 'info.main' }} />;
-        case "completed":
-            return <CheckCircleIcon sx={{ mr: 1, color: 'success.main' }} />;
-        case "no-show":
-            return <CancelIcon sx={{ mr: 1, color: 'error.main' }} />;
-        default:
-            return null;
-    }
-};
 
 const Dashboard = () => {
     const theme = useTheme();
@@ -139,38 +119,7 @@ const Dashboard = () => {
                                     borderRight: index < columns.length - 1 ? `1px solid ${theme.palette.divider}` : 'none'
                                 }}
                             >
-                                <Box sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    mb: 2,
-                                    pb: 1,
-                                    borderBottom: 1,
-                                    borderColor: 'divider'
-                                }}>
-                                    {getColumnIcon(column.id)}
-                                    <Typography
-                                        variant="h6"
-                                        sx={{
-                                            color: 'text.primary',
-                                            fontWeight: 600,
-                                            flex: 1
-                                        }}
-                                    >
-                                        {column.title}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        sx={{
-                                            color: 'text.secondary',
-                                            bgcolor: 'action.hover',
-                                            px: 1,
-                                            py: 0.5,
-                                            borderRadius: 1
-                                        }}
-                                    >
-                                        {column.tasks.length}
-                                    </Typography>
-                                </Box>
+                                <ColumnHeader column={column} />
                                 <Droppable droppableId={column.id}>
                                     {(provided) => (
                                         <Box
@@ -193,76 +142,8 @@ const Dashboard = () => {
                                             }}
                                         >
                                             {column.tasks.map((task, index) => (
-                                                <Draggable
-                                                    key={task.id}
-                                                    draggableId={task.id}
-                                                    index={index}
-                                                >
-                                                    {(provided, snapshot) => (
-                                                        <Paper
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            sx={{
-                                                                p: 2,
-                                                                mb: 1,
-                                                                bgcolor: 'background.paper',
-                                                                boxShadow: 'none',
-                                                                borderRadius: 1,
-                                                                transition: 'all 0.2s ease',
-                                                                cursor: 'grab',
-                                                                border: '1px solid',
-                                                                borderColor: 'divider',
-                                                                '&:hover': {
-                                                                    bgcolor: 'action.hover',
-                                                                    borderColor: 'primary.main',
-                                                                },
-                                                                '&:active': {
-                                                                    cursor: 'grabbing',
-                                                                },
-                                                                position: 'relative',
-                                                                ...(snapshot.isDragging && {
-                                                                    bgcolor: 'action.hover',
-                                                                    borderColor: 'primary.main',
-                                                                    boxShadow: 2,
-                                                                })
-                                                            }}
-                                                        >
-                                                            <Box sx={{ 
-                                                                display: 'flex', 
-                                                                alignItems: 'center',
-                                                                gap: 1.5
-                                                            }}>
-                                                                <Typography
-                                                                    sx={{
-                                                                        flex: 1,
-                                                                        color: 'text.primary',
-                                                                        fontWeight: 400,
-                                                                        fontSize: '0.875rem',
-                                                                        letterSpacing: '0.01em'
-                                                                    }}
-                                                                >
-                                                                    {task.content}
-                                                                </Typography>
-                                                                <Box
-                                                                    sx={{
-                                                                        width: '6px',
-                                                                        height: '6px',
-                                                                        borderRadius: '50%',
-                                                                        bgcolor: column.id === 'appointment' ? 'primary.main' :
-                                                                                column.id === 'confirmation' ? 'warning.main' :
-                                                                                column.id === 'reschedule' ? 'info.main' :
-                                                                                column.id === 'completed' ? 'success.main' :
-                                                                                'error.main',
-                                                                        opacity: 0.8
-                                                                    }}
-                                                                />
-                                                            </Box>
-                                                        </Paper>
-                                                    )}
-                                                </Draggable>
+                                                <Card task={task} index={index} column={column} />
                                             ))}
-                                            {provided.placeholder}
                                         </Box>
                                     )}
                                 </Droppable>
