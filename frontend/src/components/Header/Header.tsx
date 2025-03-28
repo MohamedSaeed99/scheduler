@@ -15,7 +15,7 @@ const Header = ({handleOpenNavigationDrawer}: HeaderProps) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '0 20px',
-            boxShadow: 1
+            boxShadow: 0
         }}>
             <Box sx={{
                 display: 'flex',

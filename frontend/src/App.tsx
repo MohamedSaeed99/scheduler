@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom"
-import APIPage from "./components/APIPage/APIPage"
 import Dashboard from "./components/Dashboard/Dashboard"
 import Header from "./components/Header/Header"
 import { useState } from "react";
 import NavigationDrawer from "./navigation/NavigationDrawer";
 import { Box, CssBaseline } from "@mui/material";
+import Settings from "./components/Settings/Settings";
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
@@ -36,7 +36,7 @@ function App() {
           <NavigationDrawer open={open} handleCloseDrawer={handleCloseNavigationDrawer}/>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/api" element={<APIPage />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </Box>
       </Box>

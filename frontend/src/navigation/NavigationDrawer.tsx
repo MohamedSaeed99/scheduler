@@ -10,10 +10,10 @@ const NavigationDrawer = ({open, handleCloseDrawer}: NavigationDrawerProps) => {
     return (
         <Drawer
             sx={{
-                width: 200,
+                width: 250,
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
-                    width: 200,
+                    width: 250,
                     boxSizing: 'border-box',
                 },
             }}
@@ -39,7 +39,7 @@ const NavigationDrawer = ({open, handleCloseDrawer}: NavigationDrawerProps) => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component={NavLink} to="/security" sx={{
+                    <ListItemButton component={NavLink} to="/settings" sx={{
                         '&.active': {
                             backgroundColor: 'primary.light',
                             color: 'primary.contrastText',
@@ -48,20 +48,7 @@ const NavigationDrawer = ({open, handleCloseDrawer}: NavigationDrawerProps) => {
                             }
                         }
                     }}>
-                        <ListItemText primary="Security" />
-                    </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton component={NavLink} to="/dashboard" sx={{
-                        '&.active': {
-                            backgroundColor: 'primary.light',
-                            color: 'primary.contrastText',
-                            '&:hover': {
-                                backgroundColor: 'primary.main',
-                            }
-                        }
-                    }}>
-                        <ListItemText primary="Dashboard" />
+                        <ListItemText primary="Settings" />
                     </ListItemButton>
                 </ListItem>
             </List>

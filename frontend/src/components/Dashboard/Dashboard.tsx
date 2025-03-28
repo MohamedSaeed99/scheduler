@@ -1,5 +1,5 @@
-import { Box, Paper, Typography, useTheme } from "@mui/material";
-import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import { Box, Paper, useTheme } from "@mui/material";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 import { useState } from "react";
 import { Card } from "./components/Card/Card";
 import { ColumnHeader } from "./components/ColumnHeader/ColumnHeader";
