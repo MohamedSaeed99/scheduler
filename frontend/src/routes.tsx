@@ -8,16 +8,6 @@ import Header from './components/Header/Header';
 import NavigationDrawer from './navigation/NavigationDrawer';
 import { Box } from '@mui/material';
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
-};
-
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [open, setOpen] = React.useState<boolean>(false);
